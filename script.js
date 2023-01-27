@@ -51,6 +51,12 @@ const closeForm = () => {
   overlay.classList.remove("active");
 };
 
+const updateBookHolder = () => {
+  bookHolder.innerHTML = "";
+
+  library.books.forEach((book) => createBookCard(book));
+};
+
 const createBookCard = (book) => {
   const bookCard = document.createElement("div");
   const title = document.createElement("p");
@@ -63,15 +69,17 @@ const createBookCard = (book) => {
   readBtn.onclick = toggleRead;
   removeBtn.onclick = removeBook;
 
-  title.textContent = book.title;
+  title.textContent = `"${book.title}"`;
   author.textContent = book.author;
   pages.textContent = `${book.pages} pages`;
   removeBtn.textContent = "Remove";
 
   if (book.read) {
     readBtn.textContent = "Read";
+    readBtn.classList.add("light-green");
   } else {
     readBtn.textContent = "Not read";
+    readBtn.classList.add("light-red");
   }
 
   bookHolder.appendChild(bookCard);
@@ -100,10 +108,17 @@ const addBook = (e) => {
 
 const removeBook = (e) => {
   const title = e.target.parentNode.firstChild.innerHTML.replaceAll('"', "");
+
+  library.removeBook(title);
+  updateBookHolder();
 };
 
 const toggleRead = (e) => {
   const title = e.target.parentNode.firstChild.innerHTML.replaceAll('"', "");
+  const book = library.getBook(title);
+
+  book.read = !book.read;
+  updateBookHolder();
 };
 
 newBookBtn.onclick = openForm;

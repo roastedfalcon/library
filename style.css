@@ -41,6 +41,19 @@ body > h1 {
   border-radius: 4px;
 }
 
+.book button {
+  height: 30px;
+  width: 80px;
+}
+
+.light-green {
+  background-color: lightgreen;
+}
+
+.light-red {
+  background-color: lightcoral;
+}
+
 /* add book form */
 
 #form-container {
